@@ -8,8 +8,18 @@ type AuthPayload {
 }
 
 type Mutation {
+  createProfile(avatar: String, bio: String, location: String, website: String): Profile
   login(email: String!, password: String!): AuthPayload
   signup(email: String!, name: String, password: String!): AuthPayload
+  updateProfile(avatar: String, bio: String, id: Int, location: String, website: String): Profile
+}
+
+type Profile {
+  avatar: String
+  bio: String
+  id: Int!
+  location: String
+  website: String
 }
 
 type Query {
@@ -17,10 +27,16 @@ type Query {
   users: [User]
 }
 
-type Tweet
+type Tweet {
+  author: User
+  content: String!
+  id: Int!
+}
 
 type User {
   email: String!
   id: Int!
   name: String
+  Profile: Profile
+  tweets: [Tweet!]!
 }
